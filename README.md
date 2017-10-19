@@ -10,5 +10,8 @@
 * [trustcode-automation](https://github.com/Trust-Code/odoo-automation) - Scripts Ansible para automatizar instalação do Odoo
 
 
+## Legislação Brasileira
 
-* [planilha](https://github.com/jask83/odoo-resources/raw/master/Calculo%20ICMS-STOrig.xlsx)
+*Links que ajudam a entender a legislação brasileira no que tange impostos e regras.*
+
+* [Planilha para cálculo de ST](https://github.com/jask83/odoo-resources/raw/master/Calculo%20ICMS-STOrig.xlsx)
