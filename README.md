@@ -11,3 +11,4 @@
 
 
 
+* [planilha](https://github.com/jask83/odoo-resources/raw/master/Calculo%20ICMS-STOrig.xlsx)
