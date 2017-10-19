@@ -14,4 +14,4 @@
 
 *Links que ajudam a entender a legislação brasileira no que tange impostos e regras.*
 
-* [Planilha para cálculo de ST](https://github.com/jask83/odoo-resources/raw/master/Calculo%20ICMS-STOrig.xlsx)
+* [Planilha para cálculo de ST](/Calculo%20ICMS-STOrig.xlsx) - Planilha exemplificando o cálculo de Substituição Tributária
