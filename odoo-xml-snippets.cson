@@ -1,0 +1,287 @@
+'.text.xml':
+	'Create the main tags':
+		'prefix': 'oo_data'
+		'body': """
+		<?xml version="1.0" encoding="utf-8"?>
+		<odoo>
+			$1
+		</odoo>
+		"""
+
+# Form, tree and search view creation
+
+	'Create form view':
+		'prefix': 'oo_form'
+		'body': """
+			<record id="$1_view_form" model="ir.ui.view">
+				<field name="name">$2.form</field>
+				<field name="model">$2</field>
+				<field name="arch" type="xml">
+					<form string="$3">
+						<sheet>
+							<group>
+								<field name="$4"/>
+							</group>
+						</sheet>
+					</form>
+				</field>
+			</record>
+		"""
+
+	'Create tree view':
+		'prefix': 'oo_tree'
+		'body': """
+			<record id="$1_view_tree" model="ir.ui.view">
+				<field name="name">$2.tree</field>
+				<field name="model">$2</field>
+				<field name="arch" type="xml">
+					<tree string="$3">
+						<field name="$4"/>
+					</tree>
+				</field>
+			</record>
+		"""
+
+	'Create search view':
+		'prefix': 'oo_search'
+		'body': """
+			<record id="$1_view_search" model="ir.ui.view">
+				<field name="name">$2.search</field>
+				<field name="model">$2</field>
+				<field name="arch" type="xml">
+					<tree string="$3">
+						<field name="$4"/>
+						<filter name="$5" string="$6" domain="[(\'$7\', \'=\', $8), ]"/>
+					</tree>
+				</field>
+			</record>
+		"""
+
+	'Inherit existing form view':
+		'prefix': 'oo_form_inherit'
+		'body': """
+			<!-- Inherit Form view -->
+			<record id="$1" model="ir.ui.view">
+				<field name="name">$2.form</field>
+				<field name="model">$2</field>
+				<field name="inherit_id" ref="$3"/>
+				<field name="arch" type="xml">
+					<field name="$4" position="$5">
+						<!-- Add your fields or attributes here -->
+					</field>
+				</field>
+			</record>
+		"""
+
+	'Inherit existing tree view':
+		'prefix': 'oo_tree_inherit'
+		'body': """
+			<record id="$1" model="ir.ui.view">
+				<field name="name">$2.tree</field>
+				<field name="model">$2</field>
+				<field name="inherit_id" ref="$3"/>
+				<field name="arch" type="xml">
+					<field name="$4" position="$5">
+						<!-- Add new fields here -->
+					</field>
+				</field>
+			</record>
+		"""
+
+	'Inherit existing search view':
+		'prefix': 'oo_search_inherit'
+		'body': """
+			<record id="$1" model="ir.ui.view">
+				<field name="name">$2.search</field>
+				<field name="model">$2</field>
+				<field name="inherit_id" ref="$3"/>
+				<field name="arch" type="xml">
+					<field name="$4" position="$5">
+						<!-- Add new fields or filters here -->
+					</field>
+				</field>
+			</record>
+		"""
+
+	'Add Form\'s header with \'state\' and buttons':
+		'prefix': 'oo_form_header'
+		'body': """
+			<header>
+				<button name="$1" string="$2" class="oe_highlight" states="$3" type="$4"/>
+				<field name="state" widget="statusbar" statusbar_visible="$5" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
+			</header>
+		"""
+
+# Action
+
+	'Create new action':
+		'prefix': 'oo_action'
+		'body': """
+			<record id="$1_action_form" model="ir.actions.act_window">
+				<field name="name">$2</field>
+				<field name="res_model">$3</field>
+				<field name="view_mode">tree,form</field>
+				<field name="help" type="html">
+					<p class="oe_view_nocontent_create">
+						<!-- Add Text Here -->
+					</p>
+					<p>
+						<!-- More details about what a user can do -->
+					</p>
+				</field>
+			</record>
+		"""
+
+# Menuitem
+
+	'Create menu item in the upper bar':
+		'prefix': 'oo_menuitem_root'
+		'body': '<menuitem id="menu_$1" name="$2" sequence="$3"/>'
+
+	'Create menu item for category':
+		'prefix': 'oo_menuitem_category'
+		'body': '<menuitem id="menu_$1" name="$2" parent="$3" sequence="$4"/>'
+
+	'Create menu item for actions':
+		'prefix': 'oo_menuitem_action'
+		'body': '<menuitem id="menu_$1" name="$2" parent="$3" action="$4" sequence="$5"/>'
+
+# Common structures
+
+	'Add nested groups':
+		'prefix': 'oo_nested_group'
+		'body': """
+			<group string="$1">
+				<group>
+					<field name="$2"/>
+				</group>
+				<group>
+					<field name="$3"/>
+				</group>
+			</group>
+		"""
+
+	'Add notebook and a page':
+		'prefix': 'oo_notebook'
+		'body': """
+			<notebook>
+				<page string="$1">
+					<group>
+						<field name="$2"/>
+					</group>
+				</page>
+			</notebook>
+		"""
+
+	'Add page':
+		'prefix': 'oo_page'
+		'body': """
+			<page string="$1">
+				<group>
+					<field name="$2"/>
+				</group>
+			</page>
+		"""
+
+	'Add domain to a field':
+		'prefix': 'oo_domain'
+		'body': 'domain="[(\'$1\', \'=\', $2), ]"'
+
+# Security
+
+	'Create security category':
+		'prefix': 'oo_security_category'
+		'body': """
+		    <record id="module_category_$1" model="ir.module.category">
+				<field name="name">$2</field>
+				<field name="sequence">$3</field>
+		    </record>
+		"""
+
+	'Create group, then assign new permissions':
+		'prefix': 'oo_security_group'
+		'body': """
+			<record id="group_$1" model="res.groups">
+				<field name="name">$2</field>
+				<field name="category_id" ref="$3"/>
+				<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+			</record>
+		"""
+
+	'Create security rules':
+		'prefix': 'oo_security_rule'
+		'body': """
+			<record id="rule_$1" model="ir.rule">
+				<field name="name">$2</field>
+				<field name="model_id" ref="model_$3"/>
+				<field name="domain_force">[(\'$4\', \'=\', $5), ]</field>
+				<field name="perm_write" eval="1"/>
+				<field name="perm_create" eval="1"/>
+				<field name="perm_read" eval="1"/>
+				<field name="perm_unlink" eval="1"/>
+				<!-- You can attach this rule to a specific group, or make it global -->
+				<field name="groups" eval="[(4, ref('group_id'))]"/>
+				<!--<field name="global" eval="1"/> -->
+			</record>
+		"""
+
+# Workflow
+
+	'Create workflow':
+		'prefix': 'oo_wkf'
+		'body': """
+			<record id="wkf_$1" model="workflow">
+				<field name="name">$2</field>
+				<field name="osv">$3</field>
+				<field name="on_create">True</field>
+			</record>
+		"""
+
+	'Add transition to workflow':
+		'prefix': 'oo_wkf_transition'
+		'body': """
+			<record id="trans_$1" model="workflow.transition">
+				<field name="act_from" ref="$2"/>
+				<field name="act_to" ref="$3"/>
+				<field name="signal">$4</field>
+			</record>
+		"""
+
+	'Add activity to workflow':
+		'prefix': 'oo_wkf_activity'
+		'body': """
+			<record id="act_$1" model="workflow.activity">
+				<field name="wkf_id" ref="$2"/>
+				<field name="name">$3</field>
+				<!--<field name="flow_start">True</field>-->
+				<!--<field name="flow_stop">True</field>-->
+				<field name="kind">function</field>
+				<field name="action">$4</field>
+			</record>
+		"""
+
+# Misc
+
+	'Add Social Messaging and followers':
+		'prefix': 'oo_form_social'
+		'body': """
+			<div class="oe_chatter">
+				<field name="message_follower_ids" widget="mail_followers"/>
+				<field name="message_ids" widget="mail_thread"/>
+			</div>
+		"""
+# Smart Buttons
+
+	'Add Smart Button Type=Action':
+		'prefix': 'oo_smart_button_action'
+		'body': """
+                        <xpath expr="//div[@name='button_box']" position="inside">
+			<!-->O posicionamento é na div sheet<-->
+                            <button type="action" class="oe_stat_button" icon="fa-money"
+                                name="%(external name da action a ser chamada)d"
+                                context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}">
+                                <field string="Bank account(s)" name="bank_account_count" widget="statinfo"/>
+                            </button>
+                        </xpath>
+		"""
+	

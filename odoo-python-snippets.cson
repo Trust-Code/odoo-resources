@@ -1,0 +1,209 @@
+'.source.python':
+
+# Odoo objects
+
+	'Create New Odoo Object':
+		'prefix': 'oo_new_module'
+		'body': """
+			# -*- encoding: utf-8 -*-
+			# © 2017 Mackilem Van der Laan, Trustcode
+			# © 2017 Danimar Ribeiro, Trustcode
+			# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
+			from odoo import api, fields, models
+
+
+			class ${10:NewModule}(models.Model):
+				_name = '${20:module.name}'
+				_rec_name = '${30:module.rec_name}' # optional
+				_description = '${40:Module description}'
+				_order = '${50:field1}, ${60:field2}, ' # optional
+
+				name = fields.Char()$70
+		"""
+
+	'Inherit/Extend Existing Odoo Object':
+		'prefix': 'oo_object_inherit'
+		'body': """
+			class ${10:NewModule}(models.Model):
+				_name = '${20:module.name}' # optional
+				_inherit = '${30:module.name}'
+
+				name = fields.Char()$40
+		"""
+
+# Odoo fields
+
+	'Integer Field':
+		'prefix': 'oo_field_integer'
+		'body': '${5:new_field} = fields.Integer(string="${10:Field name}", )'
+
+	'Float Field':
+		'prefix': 'oo_field_float'
+		'body': '${5:new_field} = fields.Float(string="${10:Field name}", )'
+
+	'Char Field':
+		'prefix': 'oo_field_char'
+		'body': '${5:new_field} = fields.Char(string="${10:Field name}", )'
+
+	'Text Field':
+		'prefix': 'oo_field_text'
+		'body': '${5:new_field} = fields.Text(string="${10:Field name}", )'
+
+	'Many2one Field':
+		'prefix': 'oo_field_many2one'
+		'body': '''
+			${10:new_field_id} = fields.Many2one(
+				string="${20:Field name}",
+				comodel_name="${30:res.partner}",
+				domain="[('${40:field}', '${41:=}', ${42:other})]",
+				context={"${50:key}": ${51:"value"}\\},
+				ondelete="${60:set null}",
+				help="${70:Explain your field}.",
+			})$80
+			'''
+
+	'One2many Field':
+		'prefix': 'oo_field_one2many'
+		'body': '''
+			${10:new_field_ids} = fields.One2many(
+				string="${20:Field name}",
+				comodel_name="${30:res.partner}",
+				inverse_name="${40:inverse_name_id}",
+				domain="[('${50:field}', '${51:=}', ${52:other})]",
+				context={"${60:key}": ${61:"value"}\\},
+				help="${70:Explain your field}.",
+			)$80
+			'''
+
+	'Many2many Field':
+		'prefix': 'oo_field_many2many'
+		'body': '''
+			${10:new_field_ids} = fields.Many2many(
+				string="${20:Field name}",
+				comodel_name="${30:res.partner}",
+				relation="${40:relation_table_name}",
+				column1="${50:column_this}",
+				column2="${60:column_other}",
+				domain="[('${70:field}', '${71:=}', ${72:other})]",
+				context={"${80:key}": ${81:"value"}\\},
+				help="${90:Explain your field}.",
+			})$100
+			'''
+
+	'Boolean Field':
+		'prefix': 'oo_field_boolean'
+		'body': '${5:is_new_field} = fields.Boolean(string="${10:Field name}", )'
+
+	'HTML Field':
+		'prefix': 'oo_field_html'
+		'body': '${5:new_field} = fields.HTML(string="${10:Field name}", )'
+
+	'Date Field':
+		'prefix': 'oo_field_date'
+		'body': '${5:new_field} = fields.Date(string="${10:Field name}", )'
+
+	'DateTime Field':
+		'prefix': 'oo_field_datetime'
+		'body': '${5:new_field} = fields.Datetime(string="${10:Field name}", )'
+
+	'Selection Field':
+		'prefix': 'oo_field_selection'
+		'body': '''
+			${5:new_field} = fields.Selection(
+				string="${10:Field name}",
+				selection=[
+						(\'${20:value1}\', \'${21:description1}\'),
+						(\'${30:value2}\', \'${31:description2}\'),
+				],$40
+			)$50
+			'''
+
+	'Binary Field':
+		'prefix': 'oo_field_binary'
+		'body': '${5:new_field} = fields.Binary(string="${10:Field name}", )'
+
+# Call to common Odoo methods
+
+	'Search':
+		'prefix': 'oo_search'
+		'body': 'self.search([(\'$1\', \'=\', $2), ...], offset=0, limit=None, order=None, count=False)'
+
+	'Name search':
+		'prefix': 'oo_search_name'
+		'body': 'self.name_search(name=\'$1\', args=None, operator=\'ilike\', limit=100)'
+
+# Creation of common Odoo methods
+
+	'Compute method':
+		'prefix': 'oo_method_compute'
+		'body': """
+			@api.multi
+			@api.depends("${10:field1}", "${20:field2}", )
+			def _compute_${30:field}(self):
+				for s in self:
+					${40:pass}
+		"""
+
+	'Onchange method':
+		'prefix': 'oo_onchange_method'
+		'body': """
+			@api.onchange("${10:field1}", "${20:field2}", )
+			def _onchange_${30:field}(self):
+				vals = {}
+
+				# Remove warning if necessary
+				vals['warning'] = {
+					'title': _('$40')
+					'message': _('$50')
+				}
+
+				# Remove domain if necessary
+				vals['domain'] = {
+					"${60:field}": [("$61", "${62:=}", ${63:value})],
+				}
+
+				return vals$70
+		"""
+
+	'Constrains method':
+		'prefix': 'oo_constrains_method'
+		'body': """
+			@api.multi
+			@api.constrains("${10:field1}", "${20:field2}", )
+			def _check_${30:field}(self):
+				for s in self:
+					if s.${40:field} == ${50:value}:
+						raise ValidationError(_("$60"))$70
+			"""
+
+# Complex Odoo fields
+
+	'Compute field':
+		'prefix': 'odoo_field_compute'
+		'body': """
+			${10:new_field} = fields.${20:Float}(
+				string="${30:Field string}",
+				compute='_compute_${10:new_field}',
+				inverse='_inverse_${10:new_field}',
+				search='_search_${10:new_field}',
+				help="$50",
+			)
+
+			@api.multi
+			@api.depends("${60:field1}", "${70:field2}", )
+			def _compute_${10:new_field}(self):
+				for s in self:
+					${80:pass}
+
+			@api.multi
+			def _inverse_${10:new_field}(self):
+				for s in self:
+					${90:pass}
+
+			@api.multi
+			def _search_${10:new_field}(self, operator, value):
+				if operator == 'like':
+					operator = 'ilike'
+				return [('${100:new_field}', operator, value)]}
+			"""
