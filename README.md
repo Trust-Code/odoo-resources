@@ -15,3 +15,10 @@
 *Links que ajudam a entender a legislação brasileira no que tange impostos e regras.*
 
 * [Planilha para cálculo de ST](/Calculo%20ICMS-STOrig.xlsx) - Planilha exemplificando o cálculo de Substituição Tributária
+
+## Ferramentas de desenvolvimento
+
+*Links para agilizar o desenvolvimento*
+
+* [Snippets odoo python](/odoo-python-snippets.cson) - Snippets para oddo python
+* [Snippets odoo xml](/odoo-xml-snippets.cson) - Snippets para odoo xml
