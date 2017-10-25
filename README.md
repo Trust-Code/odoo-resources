@@ -22,3 +22,9 @@
 
 * [Snippets odoo python](/odoo-python-snippets.cson) - Snippets para oddo python
 * [Snippets odoo xml](/odoo-xml-snippets.cson) - Snippets para odoo xml
+
+## Ferramentas de importação e exportação de dados
+
+*Links com ferramentas para importação e exportação de dados.*
+
+* [odoo_csv_import](https://github.com/Trust-Code/odoo_csv_import) - Importação e exportação de dados utilizando Odoo API
